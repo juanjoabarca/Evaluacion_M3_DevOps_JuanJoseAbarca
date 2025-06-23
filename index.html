@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Informe DevOps - TransChile</title>
+    <meta name="description" content="EV-M3 Juan José Abarca" />
+
+    <!-- Pico.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css"
+    />
+    <link rel="icon" href="https://fav.farm/🚛" />
+  </head>
+  <style>
+    html {
+      scroll-padding-top: 7rem;
+    }
+    p {
+      text-align: justify;
+    }
+  </style>
+
+  <body>
+    <header
+      class="container-fluid"
+      style="
+        position: sticky;
+        top: 0;
+        background: var(--pico-background-color);
+        z-index: 1000;
+        border-bottom: 1px solid var(--pico-secondary-background);
+      "
+    >
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: nowrap;
+        "
+      >
+        <hgroup style="margin: 0">
+          <h1>🚛 TransChile</h1>
+          <p>🧾 EV-M3 | Juan J. Abarca</p>
+        </hgroup>
+        <nav>
+          <ul style="display: flex; margin: 0">
+            <li>
+              <details class="dropdown">
+                <summary role="button" class="secondary">🗂️</summary>
+                <ul dir="rtl">
+                  <li><a href="#contexto">Contexto</a></li>
+                  <li><a href="#intro">Introducción</a></li>
+                  <li><a href="#control-versiones">Git</a></li>
+                  <li><a href="#ci-cd">CI/CD</a></li>
+                  <li><a href="#seguridad">Seguridad</a></li>
+                  <li><a href="#conclusion">Conclusión</a></li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <details class="dropdown">
+                <summary role="button" class="secondary">⚙️</summary>
+                <ul dir="rtl">
+                  <li><a href="#" data-theme-switcher="auto">🌓 Auto</a></li>
+                  <li><a href="#" data-theme-switcher="light">☀️ Claro</a></li>
+                  <li><a href="#" data-theme-switcher="dark">🌑 Oscuro</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container-fluid">
+      <!-- Presentación -->
+      <blockquote>
+        <h4>👋🏻 Antes de comenzar</h4>
+        <small>
+          Esta web fue creada con fines académicos, todos los datos que se
+          exponen no son reales. En esta se comparte la solución a la
+          problemática de la
+          <strong>Evaluación del Módulo 3</strong> del BootCamp Dev-Ops TD 2025.
+        </small>
+        <hr />
+        <small>
+          Puedes usar los botones de la zona superior derecha para interactuar
+          con la web:
+          <ul>
+            <li>🗂️ Navegar entre secciones.</li>
+            <li>⚙️ Ajustes de visualización.</li>
+          </ul>
+        </small>
+        <footer>
+          <cite>— Juan José Abarca</cite>
+        </footer>
+      </blockquote>
+
+      <hr />
+
+      <!-- Contexto -->
+      <article id="contexto">
+        <p>
+          <details>
+            <summary><strong>🎯 Contexto</strong></summary>
+            <p>
+              En la industria del transporte de mercancías, la optimización de
+              procesos tecnológicos es clave para garantizar eficiencia,
+              seguridad y rapidez en la entrega. La empresa TransChile se dedica
+              al transporte de carga dentro de Chile y actualmente enfrenta
+              problemas en su desarrollo de software, lo que impacta
+              negativamente en la operación logística.
+            </p>
+            <p>
+              El equipo de desarrollo trabaja sin integración continua, no
+              cuenta con un flujo de trabajo estructurado ni herramientas de
+              control de versiones adecuadas, lo que genera errores en
+              producción, problemas de seguridad y falta de automatización en la
+              entrega de software.
+            </p>
+            <p>
+              Como especialista en DevOps, los estudiantes deberán evaluar el
+              estado actual de la empresa y proponer soluciones en un informe
+              estructurado.
+            </p>
+            <h4>Escenario de la Empresa TransChile</h4>
+            <h5>
+              Descripción del problema actual en el desarrollo de software:
+            </h5>
+            <ul>
+              <li>
+                <strong>Falta de control de versiones:</strong> Los
+                desarrolladores trabajan en sus propios archivos sin un
+                repositorio centralizado. Se reúnen una vez al mes para unir el
+                código manualmente y lo suben al servidor por FTP.
+              </li>
+              <li>
+                <strong>Ausencia de un proceso de integración continua:</strong>
+                No utilizan herramientas como Jenkins, GitHub Actions o GitLab
+                CI/CD para gestionar el ciclo de vida del software. No se
+                ejecutan pruebas automáticas antes de integrar los cambios en
+                producción.
+              </li>
+              <li>
+                <strong>Problemas de seguridad:</strong> La empresa ha
+                experimentado ataques debido a la integración de paquetes
+                inseguros. No tienen un proceso de auditoría de seguridad ni
+                análisis estático de código.
+              </li>
+              <li>
+                <strong>Falta de análisis de calidad de código:</strong> No
+                utilizan herramientas como SonarQube para detectar
+                vulnerabilidades y errores. Han identificado errores en
+                producción que podrían haberse prevenido con un proceso adecuado
+                de revisión.
+              </li>
+              <li>
+                <strong>Flujo de trabajo ineficiente:</strong> No siguen una
+                metodología clara (Git Flow, GitHub Flow, Trunk-based
+                Development). Cada desarrollador sube cambios sin revisión
+                formal.
+              </li>
+            </ul>
+          </details>
+        </p>
+      </article>
+
+      <hr />
+
+      <!-- Introducción -->
+      <article id="intro">
+        <p>
+          <details>
+            <summary>
+              <strong>📋 Introducción y análisis del estado actual</strong>
+            </summary>
+            <p>
+              La empresa TransChile, dedicada al transporte de carga dentro del
+              territorio nacional, enfrenta una serie de desafíos tecnológicos
+              que comprometen la calidad, seguridad y eficiencia de su
+              desarrollo de software. Actualmente, su modelo de trabajo se basa
+              en un enfoque manual y desestructurado que afecta gravemente la
+              operación logística.
+            </p>
+
+            <h3>🛠 Modelo actual de desarrollo</h3>
+            <p>
+              El equipo de desarrollo trabaja de manera aislada, sin un
+              repositorio centralizado ni control de versiones. Cada
+              desarrollador avanza en su entorno local y una vez al mes se
+              realiza una reunión para unir manualmente los cambios. Esta fusión
+              se realiza sin revisión de código formal y se sube directamente al
+              servidor de producción vía FTP.
+            </p>
+
+            <h3>❗ Problemas críticos en el proceso</h3>
+            <ul>
+              <li>
+                No existen herramientas de integración continua que aseguren el
+                correcto funcionamiento del software antes de su despliegue.
+              </li>
+              <li>
+                La ausencia de pruebas automatizadas permite que errores lleguen
+                a producción sin ser detectados previamente.
+              </li>
+              <li>
+                No se aplica análisis estático ni revisión de código, lo que
+                favorece la introducción de vulnerabilidades y bugs.
+              </li>
+              <li>
+                El proceso de despliegue manual y sin control de versiones
+                expone a la empresa a pérdidas de información y errores
+                difíciles de rastrear.
+              </li>
+            </ul>
+
+            <h3>⚠️ Impacto de la falta de control y automatización</h3>
+            <p>
+              La inexistencia de un sistema de control de versiones como Git
+              impide tener trazabilidad, historial de cambios y colaboración
+              efectiva. La falta de automatización también ralentiza la entrega
+              de nuevas funcionalidades, incrementa los errores humanos y
+              dificulta la recuperación ante fallos. Esto se traduce en mayores
+              costos operativos, pérdida de confianza por parte de los clientes
+              y una menor competitividad en el mercado.
+            </p>
+          </details>
+        </p>
+      </article>
+
+      <hr />
+
+      <!-- Git -->
+      <article id="control-versiones">
+        <p>
+          <details>
+            <summary>
+              <strong
+                >🔁 Propuesta de implementación de Git y control de
+                versiones</strong
+              >
+            </summary>
+            <p>
+              Existen varias metodologías para organizar el trabajo con Git.
+              <strong>Git Flow</strong> establece ramas separadas para
+              desarrollo, releases y hotfixes, siendo útil para proyectos con
+              ciclos definidos. <strong>GitHub Flow</strong> es más simple y
+              continuo, trabajando directamente con <code>main</code> y ramas
+              por feature. <strong>Trunk-based Development</strong>, por su
+              parte, sugiere trabajar con una sola rama base y hacer entregas
+              continuas, lo que requiere alto nivel de automatización y pruebas.
+            </p>
+
+            <h3>🔧 Propuesta de control de versiones con Git</h3>
+            <p>
+              Se propone implementar una estructura de ramas basada en
+              <strong>main</strong>, <strong>staging</strong> y
+              <strong>develop</strong>:
+            </p>
+            <ul>
+              <li>
+                <strong>main:</strong> rama protegida que representa el estado
+                estable en producción.
+              </li>
+              <li>
+                <strong>staging:</strong> contiene los cambios listos para pasar
+                a producción tras validación funcional.
+              </li>
+              <li>
+                <strong>develop:</strong> recibe los cambios que se están
+                integrando desde ramas de desarrollo.
+              </li>
+              <li>
+                <strong>feature/*:</strong> ramas creadas desde
+                <code>develop</code> para trabajar en funcionalidades
+                específicas, de forma aislada.
+              </li>
+            </ul>
+
+            <h3>✅ Justificación del flujo recomendado</h3>
+            <p>
+              Actualmente, TransChile carece de versionamiento formal, lo que
+              impide tener trazabilidad de cambios, control de errores y
+              colaboración efectiva. Con Git y esta estructura de ramas, cada
+              funcionalidad se desarrollará de forma aislada y controlada,
+              permitiendo identificar de forma precisa qué se hizo, cuándo, por
+              quién y por qué.
+            </p>
+            <p>
+              Además, este flujo facilita la automatización de pruebas: al crear
+              una <code>feature/*</code>, se puede ejecutar una batería de
+              pruebas unitarias. Al integrar a <code>develop</code>, se
+              ejecutarán pruebas de integración, y al pasar a
+              <code>staging</code>, se validará el sistema de forma más global
+              con pruebas funcionales y de seguridad. Solo si todo pasa
+              exitosamente, los cambios se promoverán a <code>main</code> para
+              su despliegue en producción.
+            </p>
+          </details>
+        </p>
+      </article>
+
+      <hr />
+
+      <!-- CI/CD -->
+      <article id="ci-cd">
+        <p>
+          <details>
+            <summary>
+              <strong>🚀 Implementación de integración continua (CI/CD)</strong>
+            </summary>
+            <p>
+              Se ha elegido <strong>GitHub Actions</strong> como herramienta de
+              CI/CD por su integración nativa con el repositorio, soporte para
+              Django y facilidad de uso. Permite automatizar procesos clave del
+              ciclo de vida del software directamente desde la plataforma donde
+              se aloja el código.
+            </p>
+
+            <h3>🛠️ Propuesta de pipeline CI/CD</h3>
+            <p>
+              El flujo considera los siguientes entornos de trabajo, de acuerdo
+              a la estrategia de ramas:
+            </p>
+            <ul>
+              <li>
+                <strong>feature/*:</strong> Pruebas unitarias, análisis de
+                seguridad y revisión de estilo al subir cambios.
+              </li>
+              <li>
+                <strong>develop:</strong> Pruebas integradas, escaneo de
+                vulnerabilidades en dependencias y revisión de contenedores.
+              </li>
+              <li>
+                <strong>staging:</strong> Se ejecutan pruebas funcionales,
+                revisión de infraestructura y se genera un
+                <strong>live preview</strong> de la app.
+              </li>
+              <li>
+                <strong>main:</strong> Despliegue a producción solo si staging
+                pasa todas las validaciones.
+              </li>
+            </ul>
+
+            <h3>🔍 Estrategias de calidad por etapa</h3>
+            <ul>
+              <li>
+                <strong>Linting:</strong> Uso de <code>flake8</code> y
+                <code>black</code> para mantener código limpio.
+              </li>
+              <li>
+                <strong>Testing:</strong> Se aplican pruebas unitarias,
+                integración y funcionales según la rama.
+              </li>
+              <li>
+                <strong>Seguridad:</strong> Uso de <code>bandit</code> para
+                código y <code>safety</code> para dependencias. Además, se
+                incluye un escaneo de imágenes Docker con
+                <code>trivy</code> para detectar vulnerabilidades antes de
+                desplegar.
+              </li>
+              <li>
+                <strong>Entorno virtual:</strong> Se aísla la instalación de
+                dependencias con entornos virtuales para asegurar consistencia.
+              </li>
+              <li>
+                <strong>Preview:</strong> En staging, se despliega la app en un
+                entorno temporal para revisión visual.
+              </li>
+            </ul>
+
+            <h3>📄 Archivo <code>.github/workflows/django.yml</code></h3>
+            <pre><code>name: CI/CD WebApp TransChile @ Django
+
+on:
+  push:
+    branches:
+      - develop
+      - staging
+      - main
+  pull_request:
+    branches:
+      - develop
+      - staging
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: transchile
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DJANGO_SECRET_KEY: testsecret
+      DJANGO_DEBUG: true
+      DATABASE_URL: postgres://user:password@localhost:5432/transchile
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Crear entorno virtual e instalar dependencias
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Formateo de código y lint
+        run: |
+          source venv/bin/activate
+          black . --check
+          flake8 .
+
+      - name: Análisis de seguridad en código y dependencias
+        run: |
+          source venv/bin/activate
+          bandit -r .
+          safety check --full-report
+
+      - name: Análisis de imagen Docker
+        run: |
+          docker build -t transchile .
+          docker run --rm aquasec/trivy image transchile
+
+      - name: Ejecutar pruebas
+        run: |
+          source venv/bin/activate
+          python manage.py migrate
+          python manage.py test
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/staging'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Despliegue en entorno staging (preview)
+        run: echo "Aquí se desplegaría a un entorno staging (ej: Docker o VPS)"
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Despliegue a producción
+        run: echo "Despliegue final a entorno production"
+</code></pre>
+          </details>
+        </p>
+      </article>
+
+      <hr />
+
+      <!-- Seguridad y análisis estático -->
+      <article id="seguridad">
+        <p>
+          <details>
+            <summary>
+              <strong>🛡️ Seguridad y análisis estático del código</strong>
+            </summary>
+            <p>
+              Se recomienda la integración de <strong>SonarQube</strong> como
+              herramienta principal de análisis estático del código. Su uso
+              permite detectar vulnerabilidades, bugs y code smells de forma
+              anticipada. SonarQube puede ejecutarse automáticamente en el
+              pipeline de GitHub Actions tras la ejecución de pruebas unitarias
+              e integrarse con herramientas como <code>flake8</code> y
+              <code>black</code> para reforzar la calidad del código. Su
+              interfaz gráfica facilita el seguimiento continuo de la salud del
+              proyecto.
+            </p>
+
+            <h3>🛠️ Estrategias para proteger la infraestructura</h3>
+            <ul>
+              <li>
+                <strong>Entornos segmentados:</strong> Separar ambientes de
+                desarrollo, staging y producción, restringiendo accesos según
+                entorno.
+              </li>
+              <li>
+                <strong>Control de acceso:</strong> Aplicar el principio de
+                mínimo privilegio usando autenticación multifactor y rotación de
+                tokens.
+              </li>
+              <li>
+                <strong>Escaneo de contenedores:</strong> Usar herramientas como
+                <code>Trivy</code> para detectar vulnerabilidades en imágenes
+                Docker.
+              </li>
+              <li>
+                <strong>Auditoría de cambios:</strong> Registrar eventos clave
+                mediante logs para rastrear acciones críticas en producción.
+              </li>
+            </ul>
+
+            <h3>🚫 Paquetes inseguros y cómo evitarlos</h3>
+            <p>
+              La integración de paquetes desactualizados o comprometidos es una
+              de las causas más comunes de ataques en sistemas modernos. Para
+              mitigar este riesgo se utilizarán herramientas como
+              <code>Safety</code> (que verifica vulnerabilidades conocidas) y
+              <code>pip-audit</code>, además de mantener dependencias bajo
+              versionado estricto en el archivo <code>requirements.txt</code>.
+            </p>
+            <p>
+              A futuro, se recomienda automatizar la revisión de dependencias
+              con GitHub Dependabot, que permite recibir alertas cuando se
+              detectan versiones inseguras en librerías utilizadas.
+            </p>
+
+            <h3>⚙️ Pipeline con análisis de seguridad integrado</h3>
+            <p>
+              A continuación se presenta una versión mejorada del archivo
+              <code>django.yml</code> que incorpora los análisis con SonarQube,
+              Safety, Bandit, Trivy y pruebas unitarias, manteniendo buenas
+              prácticas de seguridad y calidad en el ciclo DevOps.
+            </p>
+
+            <pre><code>name: CI/CD WebApp TransChile @ Django
+
+on:
+  push:
+    branches:
+      - develop
+      - staging
+      - main
+  pull_request:
+    branches:
+      - develop
+      - staging
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: transchile
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DJANGO_SECRET_KEY: testsecret
+      DJANGO_DEBUG: true
+      DATABASE_URL: postgres://user:password@localhost:5432/transchile
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Crear entorno virtual e instalar dependencias
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Formateo de código y lint
+        run: |
+          source venv/bin/activate
+          black . --check
+          flake8 .
+
+      - name: Análisis de seguridad en código y dependencias
+        run: |
+          source venv/bin/activate
+          bandit -r .
+          safety check --full-report
+
+      - name: Análisis de imagen Docker
+        run: |
+          docker build -t transchile .
+          docker run --rm aquasec/trivy image transchile
+
+      - name: Ejecutar pruebas unitarias
+        run: |
+          source venv/bin/activate
+          python manage.py migrate
+          python manage.py test
+
+      - name: Análisis estático con SonarQube
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip sonar-scanner.zip
+          export PATH=$PATH:$PWD/sonar-scanner-*/bin
+          sonar-scanner \
+            -Dsonar.projectKey=transchile \
+            -Dsonar.sources=. \
+            -Dsonar.python.version=3.11 \
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+  deploy-staging:
+    if: github.ref == 'refs/heads/staging'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Despliegue en entorno staging (preview)
+        run: echo "Aquí se desplegaría a un entorno staging (ej: Docker o VPS)"
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Despliegue a producción
+        run: echo "Despliegue final a entorno productivo"
+            </code></pre>
+          </details>
+        </p>
+      </article>
+
+      <hr />
+
+      <article id="conclusion">
+        <p>
+          <details open>
+            <summary><strong>📦 Conclusión</strong></summary>
+            <p>
+              La transformación digital propuesta para TransChile aborda de
+              forma integral los principales desafíos técnicos y
+              organizacionales del área de desarrollo. La implementación de Git
+              como sistema de control de versiones, junto a una estrategia de
+              ramas clara, permite establecer orden y trazabilidad en el ciclo
+              de vida del software.
+            </p>
+            <p>
+              El pipeline CI/CD diseñado con GitHub Actions garantiza que cada
+              cambio pase por una serie de validaciones automáticas, incluyendo
+              pruebas, análisis estático de código, escaneo de dependencias y
+              revisión de imágenes Docker. Esto permite detectar errores de
+              forma temprana y reducir riesgos antes del despliegue a
+              producción.
+            </p>
+            <p>
+              Por último, la incorporación de SonarQube y herramientas de
+              seguridad refuerza la postura de ciberseguridad de la
+              organización, asegurando que el código cumpla con estándares de
+              calidad y minimizando vulnerabilidades. Todo esto contribuye a
+              mejorar la eficiencia, la confianza en el producto y la
+              competitividad de TransChile en el mercado.
+            </p>
+            <footer>
+              <cite>— Juan José Abarca</cite>
+            </footer>
+          </details>
+        </p>
+      </article>
+    </main>
+    <script src="js/minimal-theme-switcher.js"></script>
+  </body>
+</html>
